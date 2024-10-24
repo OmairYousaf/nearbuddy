@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "729641081086",
+    "firebase_url": "https://nearbybuddy-beca4-default-rtdb.firebaseio.com",
+    "project_id": "nearbybuddy-beca4",
+    "storage_bucket": "nearbybuddy-beca4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729641081086:android:8eb96b11ab444b64676daf",
+        "android_client_info": {
+          "package_name": "com.app.nearbybuddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729641081086-kgrcvao1abli4ftler6isah0rgmhlgnq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl46UrFziNgcMcUsAuREtRBA2h4z9yMtA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729641081086-kgrcvao1abli4ftler6isah0rgmhlgnq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "729641081086-7ie78rl2ls7ukk1eei4b4liverljcorq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nearbyBuddyApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729641081086:android:764da02bfec1d967676daf",
+        "android_client_info": {
+          "package_name": "com.example.nearby_buddy_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729641081086-ne7g12rlsc9g2ai5tklu5b3fpkj295v1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nearby_buddy_app",
+            "certificate_hash": "4cef4534d0ef96e9f30c4ff216a70b156a44eb93"
+          }
+        },
+        {
+          "client_id": "729641081086-onm1khs1eqpeptbhe0c64rte8al7um5c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nearby_buddy_app",
+            "certificate_hash": "c29f67357d82bd8d4f8a086145db5fefe1b93bc7"
+          }
+        },
+        {
+          "client_id": "729641081086-kgrcvao1abli4ftler6isah0rgmhlgnq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl46UrFziNgcMcUsAuREtRBA2h4z9yMtA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729641081086-kgrcvao1abli4ftler6isah0rgmhlgnq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "729641081086-7ie78rl2ls7ukk1eei4b4liverljcorq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nearbyBuddyApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

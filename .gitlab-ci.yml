@@ -1,0 +1,21 @@
+image: $FLUTTER_IMAGE
+
+stages:
+  - build
+
+variables:
+  FLUTTER_IMAGE: cirrusci/flutter:stable-3.19.4  # assuming private image
+
+build:
+  stage: build
+  script:
+    - flutter pub get
+    - flutter build appbundle --release  # Adjust for your target platform
+  artifacts:
+    paths:
+      - build/app/outputs/flutter-apk/app-release.aab  # Update path based on target platform
+
+cache:
+  paths:
+    - pubspec.lock
+    - .pub
