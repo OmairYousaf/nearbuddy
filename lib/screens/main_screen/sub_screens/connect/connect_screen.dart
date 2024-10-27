@@ -213,11 +213,13 @@ class _ConnectScreenState extends State<ConnectScreen> {
         // check if page is a whole number
         setState(() {});
       },
-      control:  SwiperControl(color: (isLandMode)?Colors.white:Colors.transparent, disableColor:(isLandMode)?Colors.white: Colors.transparent),
-      indicatorLayout: _swipeFlag ? PageIndicatorLayout.SCALE : PageIndicatorLayout.NONE,
+      control: SwiperControl(
+          color: (isLandMode) ? Colors.white : Colors.transparent,
+          disableColor: (isLandMode) ? Colors.white : Colors.transparent),
+      indicatorLayout:
+          _swipeFlag ? PageIndicatorLayout.SCALE : PageIndicatorLayout.NONE,
       autoplay: false,
       loop: _swipeFlag,
-
       scrollDirection: Axis.horizontal,
       controller: _swiperController,
       physics: const BouncingScrollPhysics(),
@@ -225,12 +227,13 @@ class _ConnectScreenState extends State<ConnectScreen> {
       pagination: SwiperPagination(
         margin: const EdgeInsets.all(10.0),
         alignment: Alignment.bottomCenter,
-        builder: DotSwiperPaginationBuilder(color: Colors.grey, activeColor: kPrimaryColor),
+        builder: DotSwiperPaginationBuilder(
+            size: 6.0, color: Colors.grey, activeColor: kPrimaryColor),
       ),
       fade: 1.0,
-      viewportFraction: isLandMode?0.9:0.8,
+      viewportFraction: isLandMode ? 0.9 : 0.8,
       itemBuilder: (BuildContext context, int index) {
-        return (isLandMode)?_buildWebView(): _buildMobileView();
+        return (isLandMode) ? _buildWebView() : _buildMobileView();
       },
     );
   }
