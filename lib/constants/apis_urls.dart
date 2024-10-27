@@ -20,6 +20,7 @@ class ApiUrls {
   static const String urlGetChatId = "${apiUrl}isChatListCreated.php";
   static const String urlCreateChatList = "${apiUrl}createChatList.php";
   static const String urlShowFriendList = "${apiUrl}showFriendList.php";
+  static const String urlNotificationsList = "${apiUrl}getNotifications.php";
   static const String urlBlockUser = "${apiUrl}blockUser.php";
   static const String urlUploadChatAttachment =
       "${apiUrl}uploadChatAttachment.php";

@@ -9,6 +9,7 @@ import 'package:nearby_buddy_app/models/group_member_model.dart';
 import 'package:nearby_buddy_app/models/image_model.dart';
 import 'package:nearby_buddy_app/models/interest_chip_model.dart';
 import 'package:nearby_buddy_app/models/chat_model.dart';
+import 'package:nearby_buddy_app/models/notification_model.dart';
 
 import '../constants/apis_urls.dart';
 import '../helper/utils.dart';
@@ -1453,6 +1454,37 @@ class ApiService {
     } catch (E) {
       Log.log(E.toString());
       return eventList;
+    }
+  }
+
+  Future<List<NotificationModel>> getNotifications({
+    required String username,
+  }) async {
+    Http http = Http();
+    Map<String, dynamic> data = <String, dynamic>{};
+    data['username'] = username;
+    List<NotificationModel> notificationList = [];
+    try {
+      final response = await http
+          .get('${ApiUrls.urlNotificationsList}?username=${data['username']}');
+      if (!response["error"]) {
+        // Convert the records into ImageModel objects
+        List<dynamic> record = List.from(response['records']);
+        for (var i = 0; i < record.length; i++) {
+          NotificationModel notificationModel =
+              NotificationModel.fromJson(record[i]);
+          Log.log("record$notificationModel");
+          notificationList.add(notificationModel);
+        }
+
+        return notificationList;
+      } else {
+        Log.log('No Friends Found');
+        return notificationList;
+      }
+    } catch (E) {
+      Log.log(E.toString());
+      return notificationList;
     }
   }
 
