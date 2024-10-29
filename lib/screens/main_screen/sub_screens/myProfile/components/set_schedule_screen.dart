@@ -166,37 +166,41 @@ class _SetScheduleScreenState extends State<SetScheduleScreen> {
                 Text(
                   "SET DAYS",
                   style: TextStyle(
-                      color: /*Color(0xFFADADAD)*/ kPrimaryColor, fontWeight: FontWeight.bold),
+                      color: /*Color(0xFFADADAD)*/ kPrimaryColor,
+                      fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    for (var i = 0; i < 7; i++)
-                      CircularButton(
-                        text: weekdays.keys
-                            .elementAt(i)
-                            .substring(0, 3), // Display the first 3 letters as "Mon"
-                        isSelected: weekdays.values.elementAt(i),
-                        onPressed: () {
-                          setState(() {
-                            var day = weekdays.keys.elementAt(i);
-                            weekdays[day] = !weekdays[day]!;
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      for (var i = 0; i < 7; i++)
+                        CircularButton(
+                          text: weekdays.keys.elementAt(i).substring(
+                              0, 3), // Display the first 3 letters as "Mon"
+                          isSelected: weekdays.values.elementAt(i),
+                          onPressed: () {
+                            setState(() {
+                              var day = weekdays.keys.elementAt(i);
+                              weekdays[day] = !weekdays[day]!;
 
-                            Log.log(weekdays);
-                          });
-                        },
-                      ),
-                  ],
+                              Log.log(weekdays);
+                            });
+                          },
+                        ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 Text(
                   "SET TIME",
-                  style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: kPrimaryColor, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 10,
