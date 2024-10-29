@@ -267,9 +267,9 @@ class _ConnectScreenState extends State<ConnectScreen> {
       ],
     );
   }
+
   _buildWebView() {
     return Row(
-
       children: [
         Expanded(
           child: Column(
@@ -277,33 +277,42 @@ class _ConnectScreenState extends State<ConnectScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Flexible(child: _buildImageOvalWgt(),),
-              const SizedBox(height: 10,),
-              Flexible(child:   _buildConnectBtn(),),
+              Flexible(
+                child: _buildImageOvalWgt(),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Flexible(
+                child: _buildConnectBtn(),
+              ),
             ],
           ),
         ),
-        Expanded(child: Column(
+        Expanded(
+            child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildProfileNameWdgt(),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             _buildBioBoxWgt(),
           ],
         )),
-
       ],
     );
   }
+
   _buildProfileNameWdgt() {
     return Text(
       (buddiesProfiles.isEmpty) ? '' : '${buddiesProfiles[index].name}',
-      style:  TextStyle(
+      style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 22,
-        color: isLandMode?kPrimaryColor:Colors.white,
+        color: isLandMode ? kPrimaryColor : Colors.white,
       ),
     );
   }
@@ -311,63 +320,66 @@ class _ConnectScreenState extends State<ConnectScreen> {
   _buildImageOvalWgt() {
     return ClipOval(
         child: InkWell(
-          onTap: () async {
-            CustomDialogs.showLoadingAnimation(context);
-            List<ImageModel> imagesList = await getImages(buddiesProfiles[index].username);
-            Navigator.of(context).pop();
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                  builder: (context) => UserProfileScreen(
+      onTap: () async {
+        CustomDialogs.showLoadingAnimation(context);
+        List<ImageModel> imagesList =
+            await getImages(buddiesProfiles[index].username);
+        Navigator.of(context).pop();
+        Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) => UserProfileScreen(
                     buddyData: buddiesProfiles[index],
                     loggedInUser: widget.userModel,
                     viewAsBuddyProfile: true,
                     imagesList: imagesList,
                     onRequestSent: () {
-                      buddiesProfiles[index].requestStatus = RequestStatus.Pending;
+                      buddiesProfiles[index].requestStatus =
+                          RequestStatus.Pending;
                       setState(() {});
                     },
                     myInterestList: _getInterestList(buddiesProfiles[index]),
                   )),
-            );
-          },
-          child: CachedNetworkImage(
-            imageUrl: '${ApiUrls.usersImageUrl}/${buddiesProfiles[index].image}',
-            imageBuilder: (context, imageProvider) => CircleAvatar(
-              backgroundColor: kGrey,
-              radius: 200,
-              backgroundImage: imageProvider,
-            ),
-            placeholder: (context, url) => Shimmer.fromColors(
-              baseColor: Colors.grey.shade300,
-              highlightColor: Colors.grey.shade100,
-              child: CircleAvatar(
-                radius: 24.0,
-                backgroundColor: Colors.white,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(200),
-                  child: Container(
-                    color: Colors.white,
-                  ),
-                ),
+        );
+      },
+      child: CachedNetworkImage(
+        imageUrl: '${ApiUrls.usersImageUrl}/${buddiesProfiles[index].image}',
+        imageBuilder: (context, imageProvider) => CircleAvatar(
+          backgroundColor: kGrey,
+          radius: 200,
+          backgroundImage: imageProvider,
+        ),
+        placeholder: (context, url) => Shimmer.fromColors(
+          baseColor: Colors.grey.shade300,
+          highlightColor: Colors.grey.shade100,
+          child: CircleAvatar(
+            radius: 24.0,
+            backgroundColor: Colors.white,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(200),
+              child: Container(
+                color: Colors.white,
               ),
             ),
-            errorWidget: (context, url, error) => CircleAvatar(
-              backgroundColor: kGrey,
-              radius: 30,
-              backgroundImage: const AssetImage(ImagesPaths.placeholderImage),
-            ),
           ),
-        ));
+        ),
+        errorWidget: (context, url, error) => CircleAvatar(
+          backgroundColor: kGrey,
+          radius: 30,
+          backgroundImage: const AssetImage(ImagesPaths.placeholderImage),
+        ),
+      ),
+    ));
   }
 
   _buildBioBoxWgt() {
-    return       Container(
+    return Container(
+      margin: const EdgeInsets.only(right: 4, left: 4),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15.0),
       ),
-      height: isLandMode?null:250,
-      width:isLandMode?null: 300,
+      height: isLandMode ? null : 250,
+      width: isLandMode ? null : 300,
       child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
