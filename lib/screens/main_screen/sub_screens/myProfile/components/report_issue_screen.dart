@@ -151,6 +151,7 @@ class _ReportIssueScreenState extends State<ReportIssueScreen> {
                         8.0), // Adjust the radius as needed
                   ),
                   child: DropdownButton<String>(
+                    isExpanded: true,
                     underline: Container(),
                     // Set the underline to an empty container
                     value: selectedOption,
