@@ -19,7 +19,8 @@ import '../main_screen/main_screen.dart';
 class VerifyOTPScreen extends StatefulWidget {
   final String email;
   final UserModel user;
-   const VerifyOTPScreen({Key? key, required this.email,required this.user }) : super(key: key);
+  const VerifyOTPScreen({Key? key, required this.email, required this.user})
+      : super(key: key);
 
   @override
   State<VerifyOTPScreen> createState() => _VerifyOTPScreenState();
@@ -48,33 +49,36 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
   }
 
   Future<void> sendOTP() async {
-    bool result=await ApiService().sendOTP(widget.email);
-    if(!result){
+    bool result = await ApiService().sendOTP(widget.email);
+    if (!result) {
       sendOTP();
     }
   }
 
   Future<void> verifyOTP(otp) async {
-    bool result=await ApiService().verifyOTP(email: widget.email,otp: otp);
-    if(result){
+    bool result = await ApiService().verifyOTP(email: widget.email, otp: otp);
+    if (result) {
       CustomSnackBar.showSuccessSnackBar(context, "Verified!");
       Navigator.of(context).pop();
-      bool result=  await SharedPrefs().saveToSharedPreferences(
+      bool result = await SharedPrefs().saveToSharedPreferences(
           SharedPrefs().PREFS_NAME_ISLOGGED, true.toString());
       Log.log("${result}Logged");
       if (kIsWeb) {
         Box box = Hive.box(Utils().databaseName);
         box.put("user", widget.user.toJson());
 
-        Navigator.pushNamed(context, '/mainpage',);
-      }else {
+        Navigator.pushNamed(
+          context,
+          '/mainpage',
+        );
+      } else {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => MainScreen(userModel: widget.user),
           ),
         );
       }
-    }else{
+    } else {
       CustomSnackBar.showErrorSnackBar(context, "Invalid OTP!");
       Navigator.of(context).pop();
     }
@@ -86,7 +90,7 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
         if (_resendSeconds > 0) {
           _resendSeconds--;
         } else {
-        /*  if (_resendAttempts > 0) {
+          /*  if (_resendAttempts > 0) {
             _isResendEnabled = true;
             _resendAttempts--;
             _resendSeconds = 30;
@@ -94,7 +98,7 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
             _isResendEnabled = false;
             timer.cancel();
           }*/
-          _isResendEnabled=true;
+          _isResendEnabled = true;
         }
       });
     });
@@ -114,119 +118,154 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: WillPopScope(
-        onWillPop: () async{
-          return false;
-        },
-        child: Stack(
-          children: [
-
-            Container(
-
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    kPurple,
-                    kPrimaryColor,
-                  ],
-                ),
+        body: WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  kPurple,
+                  kPrimaryColor,
+                ],
               ),
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                constraints: kIsWeb ? BoxConstraints(maxWidth: 800) : null, // Add constraints for web layout
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+              constraints: kIsWeb
+                  ? BoxConstraints(maxWidth: 800)
+                  : null, // Add constraints for web layout
 
-
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: kIsWeb?CrossAxisAlignment.center:CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(
-                      ImagesPaths.lightLogo,
-                      width: 150,
-                      height: 100,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: kIsWeb
+                    ? CrossAxisAlignment.center
+                    : CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    ImagesPaths.lightLogo,
+                    width: 150,
+                    height: 100,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "OTP Verification",
+                    style: TextStyle(
+                        color: kWhiteColor,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "We have sent an OTP on your email ${widget.email}",
+                    style: TextStyle(
+                        color: kWhiteColor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  PinCodeTextField(
+                    appContext: context,
+                    mainAxisAlignment: kIsWeb
+                        ? MainAxisAlignment.spaceEvenly
+                        : MainAxisAlignment.spaceBetween,
+                    pastedTextStyle: TextStyle(
+                      color: kPrimaryColor,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(height: 20,),
-                    Text("OTP Verification",style: TextStyle(color: kWhiteColor,fontSize: 22,fontWeight: FontWeight.bold),),
-                    Text("We have sent an OTP on your email ${widget.email}",style: TextStyle(color: kWhiteColor,fontSize: 15,fontWeight: FontWeight.w300),),
-                    const SizedBox(height: 20,),
-                    PinCodeTextField(
-                      appContext: context,
-                      mainAxisAlignment:kIsWeb? MainAxisAlignment.spaceEvenly:MainAxisAlignment.spaceBetween,
-                      pastedTextStyle:  TextStyle(
-                        color: kPrimaryColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      length: 6,
+                    length: 6,
+                    obscureText: true,
+                    obscuringCharacter: '●',
+                    blinkWhenObscuring: true,
+                    animationType: AnimationType.fade,
+                    validator: (v) {
+                      return null;
 
-                      obscureText: true,
-                      obscuringCharacter:'●',
-                      blinkWhenObscuring: true,
-                      animationType: AnimationType.fade,
-                      validator: (v) {
-                        return null;
-
-                        // if (v!.length < 3) {
-                        //   return "I'm from validator";
-                        // } else {
-                        //   return null;
-                        // }
-                      },
-                      pinTheme: PinTheme(
-                        shape: PinCodeFieldShape.box,
-                        borderRadius:kIsWeb?BorderRadius.circular(5): BorderRadius.circular(5),
-                        fieldHeight: 50,
-                        fieldWidth: 50,
-                        activeColor: kPrimaryColor,
-                        inactiveColor: kWhiteColor,
-                        selectedColor: kWhiteColor,
-                        selectedFillColor: kWhiteColor,
-                        inactiveFillColor: kWhiteColor,
-                        activeFillColor: kWhiteColor,
-                      ),
-                      cursorColor: kBlackLight,
-                      animationDuration: const Duration(milliseconds: 300),
-                      enableActiveFill: true,
-                      keyboardType: TextInputType.number,
-                      boxShadows:  const [
-
-                      ],
-                      onCompleted: (v) {
-                        CustomDialogs.showLoadingAnimation(context);
-                        verifyOTP(v);
-                      },
-                      onChanged: (value) {
-                        setState(() {});
-                      },
-                      beforeTextPaste: (text) {
-                        return true;
-                      },
+                      // if (v!.length < 3) {
+                      //   return "I'm from validator";
+                      // } else {
+                      //   return null;
+                      // }
+                    },
+                    pinTheme: PinTheme(
+                      shape: PinCodeFieldShape.box,
+                      borderRadius: kIsWeb
+                          ? BorderRadius.circular(5)
+                          : BorderRadius.circular(5),
+                      fieldHeight: 50,
+                      fieldWidth: 50,
+                      activeColor: kPrimaryColor,
+                      inactiveColor: kWhiteColor,
+                      selectedColor: kWhiteColor,
+                      selectedFillColor: kWhiteColor,
+                      inactiveFillColor: kWhiteColor,
+                      activeFillColor: kWhiteColor,
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(onPressed: (){
-                          _resendOTP();
-                        }, child: Text("Resend",style: TextStyle(color:_isResendEnabled ? Colors.white : kPrimaryColor, ),)),
-                        Expanded(child: SizedBox()),
-                        Text((_resendSeconds<10)?'00:0$_resendSeconds':'00:$_resendSeconds',style: TextStyle(color: kWhiteColor, ),)
-                      ],
-                    ),
-                    const SizedBox(height: 100,),
-                  ],
-                ),
+                    cursorColor: kBlackLight,
+                    animationDuration: const Duration(milliseconds: 300),
+                    enableActiveFill: true,
+                    keyboardType: TextInputType.number,
+                    boxShadows: const [],
+                    onCompleted: (v) {
+                      CustomDialogs.showLoadingAnimation(context);
+                      verifyOTP(v);
+                    },
+                    onChanged: (value) {
+                      setState(() {});
+                    },
+                    beforeTextPaste: (text) {
+                      return true;
+                    },
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            _resendOTP();
+                          },
+                          child: Text(
+                            "Resend",
+                            style: TextStyle(
+                              color: _isResendEnabled
+                                  ? Colors.white
+                                  : kPrimaryDark,
+                            ),
+                          )),
+                      Expanded(child: SizedBox()),
+                      Text(
+                        (_resendSeconds < 10)
+                            ? '00:0$_resendSeconds'
+                            : '00:$_resendSeconds',
+                        style: TextStyle(
+                          color: kWhiteColor,
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 100,
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      )
-    );
+          ),
+        ],
+      ),
+    ));
   }
 }
