@@ -206,10 +206,16 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                             .eraseData(SharedPrefs().PREFS_LOGIN_USER_DATA);
                         if (loggedOut) {
                           Navigator.of(context).pop();
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) {
-                            return const LoginScreen();
-                          }));
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen()),
+                            (Route<dynamic> route) => false,
+                          );
+
+                          // Navigator.of(context).pushReplacement(
+                          //     MaterialPageRoute(builder: (context) {
+                          //   return const LoginScreen();
+                          // }));
                         } else {
                           CustomSnackBar.showErrorSnackBar(context,
                               "Something went wrong. Please try again");
