@@ -155,7 +155,8 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   static void onDidReceiveBackgroundNotificationResponse(
       NotificationResponse notificationResponse) {
     // ignore: avoid_print
-    Log.log('notification(${notificationResponse.id}) action tapped onDidReceiveBgNotification: '
+    Log.log(
+        'notification(${notificationResponse.id}) action tapped onDidReceiveBgNotification: '
         '${notificationResponse.actionId} with'
         ' payload: ${notificationResponse.payload}');
     if (notificationResponse.input?.isNotEmpty ?? false) {
@@ -312,10 +313,8 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     _initializeFCM();
     _setupNotificationListeners();
 
-
     super.initState();
   }
-
 
   // Override the didChangeAppLifecycleState method and
   // listen to the app lifecycle state changes
@@ -412,9 +411,7 @@ This can happen when the application is running in the background or when anothe
   }
 
   Future<void> _openSettings() async {
-    await AppSettings.openAppSettings(callback: () {
-      Log.log("sample callback function called");
-    });
+    await AppSettings.openAppSettings();
     // Check permission again after returning from settings
     await _checkNotificationPermission();
   }
@@ -539,7 +536,6 @@ This can happen when the application is running in the background or when anothe
   }
 
   getScreen() {
-
     if (_selectedIndex == 2) {
       totalUnreadChats = 0;
     }

@@ -20,7 +20,8 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="Nearby Buddy application to connect with other users">
-  <meta name="google-signin-client_id" content="729641081086-naagohijio4fak864jbsq8ot7uosd57k.apps.googleusercontent.com" />
+  <meta name="google-signin-client_id"
+    content="729641081086-naagohijio4fak864jbsq8ot7uosd57k.apps.googleusercontent.com" />
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -33,7 +34,7 @@
   <title>nearby_buddy_app</title>
   <link rel="manifest" href="manifest.json">
   <meta name="google-signin-client_id"
-  content="729641081086-naagohijio4fak864jbsq8ot7uosd57k.apps.googleusercontent.com">
+    content="729641081086-naagohijio4fak864jbsq8ot7uosd57k.apps.googleusercontent.com">
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2SymOz9YCTFRoSwluB3xqrRibb-Nmf70"></script>
 </head>
 
@@ -46,18 +47,18 @@
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 
-  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
 
-  <!-- STEP 1: Add SDKs for Firebase products that you want to use
-       https://firebase.google.com/docs/web/setup#available-libraries -->
-  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-analytics.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-messaging.js"></script>
 
-  <!-- STEP 2: Initialize Firebase with configuration -->
+  <!-- Initialize Firebase -->
   <script>
-    // Your web app's Firebase configuration
-    // TODO ADD YOUR FIREBASE CONFIG
-    var firebaseConfig = {
+    const firebaseConfig = {
       apiKey: "AIzaSyDpWFPYucj9z7EkNnDAdb-n5EHky55Gzz0",
       authDomain: "nearbybuddy-beca4.firebaseapp.com",
       projectId: "nearbybuddy-beca4",
@@ -66,10 +67,10 @@
       appId: "1:729641081086:web:6f71044aa8640651676daf",
       measurementId: "G-HR4F6P4XCG"
     };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
 
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const analytics = firebase.analytics(app);
   </script>
 
   <script src="main.dart.js" type="application/javascript"></script>
@@ -96,7 +97,6 @@
     });
   </script>
 
-  <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-firestore.js"></script>
-
 </body>
+
 </html>
